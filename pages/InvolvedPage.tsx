@@ -1,0 +1,49 @@
+import React from 'react';
+import { Page } from '../components/Page';
+import { ModuleCard } from '../components/ModuleCard';
+
+const involvementItems = [
+    { title: "Try the hosted demo", desc: "Explore the live environment at demo.theplannersassistant.uk and see how the tools fit together.", href: "https://demo.theplannersassistant.uk" },
+    { title: "For planners and officers", desc: "See how it handles policies and sites for your area, and share feedback on workflows." },
+    { title: "For councils and public bodies", desc: "The system can be adapted to local evidence bases and existing GIS or document systems. Partner pilots are being developed to explore real‑world integration and open data publication." },
+    { title: "For collaborators and technologists", desc: "The architecture is modular and well‑documented. You can build new analytical layers, connect external datasets, or contribute directly to the open repository." },
+    { title: "For researchers and educators", desc: "The platform offers a live environment for studying digital planning, AI governance, and the design of public‑sector reasoning tools. It’s available for teaching, experimentation, and peer review." },
+];
+
+export function InvolvedPage() {
+  const handleCardClick = (item: { title: string; href?: string }) => {
+    if (item.href) {
+      window.open(item.href, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    window.location.href = `mailto:hello@theplannersassistant.uk?subject=Inquiry: ${encodeURIComponent(item.title)}`;
+  };
+
+  return (
+    <Page title="Get Involved">
+      <div className="max-w-prose">
+        <p>The Planner’s Assistant is an open project — designed to grow through collaboration between planners, technologists, and researchers. Its core tools are already live in prototype form, and new modules are being tested across the planning workflow.</p>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+        {/* FIX: Destructuring item props in map to resolve incorrect 'key' prop error. */}
+        {involvementItems.map((item) => 
+            <ModuleCard 
+                key={item.title} 
+                title={item.title}
+                desc={item.desc}
+                onClick={() => handleCardClick(item)}
+                ctaLabel={item.href ? "Open demo" : "Contact us"}
+            />
+        )}
+      </div>
+      <div className="mt-6 text-[var(--color-muted)] max-w-prose space-y-4">
+        <p>
+          Public demos, documentation, and design papers will be released in stages as development continues. Further details and early thoughts can be found on my <a href="https://tim-mayoh.bearblog.dev/" target="_blank" rel="noopener noreferrer" className="text-[var(--color-accent)] hover:underline">personal site</a>.
+        </p>
+        <div className="font-medium text-[var(--color-ink)]">
+          <strong>The Planner’s Assistant is not a product.</strong><br />It’s an emerging part of the civic infrastructure we all depend on — a shared effort to make planning more intelligent, transparent, and humane.
+        </div>
+      </div>
+    </Page>
+  );
+}

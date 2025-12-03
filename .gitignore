@@ -1,0 +1,5 @@
+node_modules/
+.env
+dist/
+deploy-cloud-run.sh
+deploy-secure.sh
